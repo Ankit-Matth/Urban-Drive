@@ -21,7 +21,6 @@ const page = () => {
             <Image
               src={carImage}
               alt="Car"
-              layout="responsive"
               width={300}
               height={300}
               className="object-cover"
