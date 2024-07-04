@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks';
 import { login } from '@/lib/features/auth/authSlice';
+import Image from 'next/image'
 
 const RegistrationPage = () => {
   const userRole = useAppSelector((state) => state.role.userRole);
@@ -254,7 +255,7 @@ const RegistrationPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       {step === 'phone' && (
         <div className={`max-w-md w-full bg-white p-8 rounded-lg shadow-md ${showPhoneModal ? 'hidden' : 'block'}`}>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">What's your phone number?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">What&apos;s your phone number?</h2>
           <form onSubmit={handlePhoneSubmit} className="space-y-4">
             <div>
               <PhoneInput
@@ -280,7 +281,7 @@ const RegistrationPage = () => {
 
       {step === 'email' && (
         <div className={`max-w-md w-full bg-white p-8 rounded-lg shadow-md ${showEmailModal ? 'hidden' : 'block'}`}>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">What's your email address?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">What&apos;s your email address?</h2>
           <form onSubmit={handleEmailSubmit} className="space-y-4">
             <div>
               <input
@@ -347,7 +348,7 @@ const RegistrationPage = () => {
 
       {step === 'name' && (
         <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">What's your name?</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">What&apos;s your name?</h2>
           <form onSubmit={handleNextStep} className="space-y-4">
             <div>
               <input
@@ -384,10 +385,10 @@ const RegistrationPage = () => {
             <div className='text-center'>
               <div className='relative inline-block my-3 mb-9'>
                 <div className={`relative rounded-full overflow-hidden bg-gray-200 w-28 h-28 cursor-pointer ${croppedImage ? 'border border-black' : ''}`} onClick={handleImgClick}>
-                  <img src={croppedImage || '/svgs/defaultUser.svg'} className='w-full h-full object-cover' alt='Default User' />
+                  <Image src={croppedImage || '/svgs/defaultUser.svg'} fill={true} className='w-full h-full object-cover' alt='Default User' />
                 </div>
                 <div className='absolute bottom-0 right-0 bg-white rounded border border-gray-800 p-2 cursor-pointer' onClick={handleImgClick}>
-                  <img src='/svgs/pencil.svg' className='w-4 h-4 object-contain' alt='Edit Profile' />
+                  <Image src='/svgs/pencil.svg' className='w-4 h-4 object-contain' width={16} height={16} alt='Edit Profile' />
                 </div>
               </div>
               {errors.selectedPic && <p className="text-red-500 text-sm mt-2">{errors.selectedPic}</p>}

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useAppSelector, useAppDispatch } from '@/lib/hooks'
 import { login } from '@/lib/features/auth/authSlice'
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const dispatch = useAppDispatch()
   const userRole = useAppSelector((state) => state.role.userRole);
@@ -81,4 +81,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -8,7 +8,7 @@ import { setRole } from '@/lib/features/role/roleSlice'
 
 const Page = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const dispatch = useAppDispatch()
   const category = useAppSelector((state) => state.contact.contactCategory);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
@@ -51,14 +51,14 @@ const Page = () => {
     }, 900);
   };
 
-  useEffect(() => {
-    const categoryParam = searchParams.get('category');
-    if (categoryParam) {
-      dispatch(setContactCategory(categoryParam))
-    } else {
-      dispatch(setContactCategory(''))
-    }
-  }, [searchParams]);
+  // useEffect(() => {
+  //   const categoryParam = searchParams.get('category');
+  //   if (categoryParam) {
+  //     dispatch(setContactCategory(categoryParam))
+  //   } else {
+  //     dispatch(setContactCategory(''))
+  //   }
+  // }, [searchParams,dispatch]);
 
   const handleCategoryClick = (cat) => {
     dispatch(setContactCategory(cat))

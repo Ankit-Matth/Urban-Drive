@@ -21,7 +21,7 @@ const Header = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div>
           <Link href={`/`} onClick={() => handleLinkClick('/')}>
-              <Image src="/images/Logo.png" alt="Logo" width={250} height={100} className="w-48 md:w-100" />
+              <Image src="/images/Logo.png" priority={true} alt="Logo" width={250} height={100} className="w-48 md:w-100" />
           </Link>
         </div>
         <div className="md:hidden">
