@@ -16,11 +16,24 @@ const Header = () => {
     setIsOpen(false);
   };
 
+  const getPath = () => {
+    switch (userRole) {
+      case 'admin':
+        return '/admin';
+      case 'driver':
+        return '/drivers';
+      case 'rider':
+        return '/riders';
+      default:
+        return '/';
+    }
+  };
+
   return (
     <header className="p-4 py-6 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
         <div>
-          <Link href={`/`} onClick={() => handleLinkClick('/')}>
+          <Link href={getPath()} onClick={() => handleLinkClick('/')}>
               <Image src="/images/Logo.png" priority={true} alt="Logo" width={250} height={100} className="w-48 md:w-100" />
           </Link>
         </div>
@@ -55,52 +68,44 @@ const Header = () => {
               <>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
                   <Link href="/" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/')}>Home</Link>
+                        activeLink === '/' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/')}>Home</Link>
                 </li>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/about" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/about' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/about')}>About</Link>
+                  <Link href="/about" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/about' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/about')}>About</Link>
                 </li>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/signup" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/riders' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {
+                  <Link href="/signup" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/riders' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {
                           handleLinkClick('/riders')
                           dispatch(setRole('rider'))
                         }}>Riders</Link>
                 </li>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/signup" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/drivers' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {
+                  <Link href="/signup" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/drivers' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {
                           handleLinkClick('/drivers')
                           dispatch(setRole('driver'))
                         }}>Drivers</Link>
                 </li>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/login" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/login' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {
+                  <Link href="/login" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/login' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {
                           handleLinkClick('/login')
                           dispatch(setRole('admin'))
                         }}>Admin</Link>
                 </li>
                 <li className='py-2 md:py-0'>
-                  <Link href="/contact" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/contact' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {handleLinkClick('/contact')}}>Contact</Link>
+                  <Link href="/contact" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/contact' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {handleLinkClick('/contact')}}>Contact</Link>
                 </li>
               </>
             )}
             {userRole === 'admin' && (
               <>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/driverVerification" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/driverVerification' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/driverVerification')}>Driver Verification</Link>
+                  <Link href="/driverVerification" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/driverVerification' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/driverVerification')}>Driver Verification</Link>
                 </li>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/userManagement" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/userManagement' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {handleLinkClick('/userManagement')}}>User Management</Link>
+                  <Link href="/userManagement" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/userManagement' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {handleLinkClick('/userManagement')}}>User Management</Link>
                 </li>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/customerQueries" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/customerQueries' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/customerQueries')}>Customer Queries</Link>
+                  <Link href="/customerQueries" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/customerQueries' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => handleLinkClick('/customerQueries')}>Customer Queries</Link>
                 </li>
               </>
             )}
@@ -110,15 +115,14 @@ const Header = () => {
                   <Link 
                     href={userRole === 'rider' ? '/riderDashboard' : '/driverDashboard'}
                     className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                      activeLink === (userRole === 'rider' ? '/riderDashboard' : '/driverDashboard') ? 'font-medium' : 'font-light'
+                      activeLink === (userRole === 'rider' ? '/riderDashboard' : '/driverDashboard') ? 'font-medium text-gray-950' : 'font-light text-gray-600'
                     } w-full justify-center flex md:flex-none md:inline`}
                     onClick={() => { handleLinkClick(userRole === 'rider' ? '/riderDashboard' : '/driverDashboard') }}>
                     Dashboard
                   </Link>
                 </li>
                 <li className='border-b-2 py-2 md:border-none md:py-0'>
-                  <Link href="/contact" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                        activeLink === '/contact' ? 'font-medium' : 'font-light' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {handleLinkClick('/contact')}}>Contact</Link>
+                  <Link href="/contact" className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${activeLink === '/contact' ? 'font-medium text-gray-950' : 'font-light text-gray-600' } w-full justify-center flex md:flex-none md:inline`} onClick={() => {handleLinkClick('/contact')}}>Contact</Link>
                 </li>
                 <li className="py-2 md:py-0 flex items-center justify-center">
                     <Link href="/myProfile" className="flex justify-center items-center w-full md:flex-none md:inline pl-2" onClick={() =>{handleLinkClick('/drivers')}}>

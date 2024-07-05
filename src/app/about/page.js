@@ -1,41 +1,74 @@
 import Image from 'next/image';
-import carImage from '../../../public/images/about.jpg'
 
-const page = () => {
+const AboutUsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
-      <div className="container mx-auto p-4">
-        <div className="flex flex-col md:flex-row items-center bg-white shadow-md rounded-lg overflow-hidden">
-          <div className="md:w-1/2 p-8">
-            <h2 className="text-3xl font-bold mb-4">About Us</h2>
-            <p className="text-gray-700 mb-4">
-              Welcome to our local car booking platform! We connect residents of Bahal with reliable drivers like Ankit for convenient and safe travel. 
-              Our mission is to make it easy for you to find available cars online, saving time and making your journey stress-free.
-            </p>
-            <p className="text-gray-700">
-              Whether you need a ride to Bhiwani or anywhere else, our platform ensures you have access to the best local drivers at your fingertips. 
-              No more waiting at common places – book your ride with just a few clicks!
-            </p>
-          </div>
-          <div className="md:w-1/2 p-16 pt-24">
-            <Image
-              src={carImage}
-              alt="Car"
-              width={300}
-              height={300}
-              className="object-cover"
-            />
+    <div className="flex items-center justify-center min-h-screen py-8 bg-gray-50 mt-1">
+      <div className="container mx-auto px-4">
+        <div className="bg-white shadow-lg rounded-lg overflow-hidden mb-10 py-6">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-2/3 pl-12 pr-4">
+              <h2 className="text-4xl font-bold mb-4">About Us</h2>
+              <p className="text-gray-700 mb-4 text-base text-justify">
+                Welcome to Urban Drive, your local car booking platform connecting drivers and riders in local or urban areas. Drivers can list their cars online, receive instant bookings, and maximize their earnings. Riders can find available cars quickly and book rides hassle-free.
+              </p>
+              <p className="text-gray-700 text-base text-justify">
+                Our mission is to provide a seamless and efficient car booking experience for the local or urban areas. We aim to bridge the gap between drivers and passengers, ensuring safety, convenience, and reliability in every ride.
+              </p>
+            </div>
+            <div className="md:w-1/3 p-8 flex items-center justify-center">
+              <Image
+                src="/images/aboutLogo.png"
+                alt="Car"
+                width={450}
+                height={450}
+                className="object-cover rounded-lg"
+              />
+            </div>
           </div>
         </div>
-        <div className="mt-8 bg-white shadow-md rounded-lg p-8">
-          <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-          <p className="text-gray-700">
-            Our mission is to provide a seamless and efficient car booking experience for the residents of Bahal. We aim to bridge the gap between drivers and passengers, ensuring safety, convenience, and reliability in every ride.
-          </p>
+        
+        <div className="bg-white shadow-lg rounded-lg px-12 mb-10 py-10">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-1/3">
+              <Image
+                src="/images/forDrivers.jpg"
+                alt="Driver"
+                width={330}
+                height={300}
+                className="object-cover rounded-lg"
+              />
+            </div>
+            <div className="md:w-2/3">
+              <h3 className="text-3xl font-bold px-6 mb-4">For Drivers</h3>
+              <p className="text-gray-700 text-lg px-6 text-justify">
+                As a driver, you no longer need to bring your car to common places every morning. Save time and petrol by listing your car online. Get notified of bookings instantly, request some payment in advance, and manage your rides efficiently. Join our platform to connect with passengers in need of a ride.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-white shadow-lg rounded-lg px-12 mb-10 py-12">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-2/3">
+              <h3 className="text-3xl font-bold px-6 mb-4">For Riders</h3>
+              <p className="text-gray-700 text-lg px-6 text-justify">
+                As a rider, you can easily find available cars online without the hassle of visiting common places. View profiles of drivers, check availability, book your ride, and make advance payments securely. Rest assured with our policy to refund your payment if a driver fails to arrive at the specified location.
+              </p>
+            </div>
+            <div className="md:w-1/3 flex items-center justify-end pr-1">
+              <Image
+                src="/images/forRiders.jpg"
+                alt="Rider"
+                width={300}
+                height={300}
+                className="object-cover rounded-lg"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default page
+export default AboutUsPage;
