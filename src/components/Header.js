@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import Image from "next/image";
+import { usePathname } from 'next/navigation'
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { setRole } from "@/lib/features/role/roleSlice";
 import { hideCommonLayout } from "@/lib/features/layout/layoutSlice";
 
 const Header = () => {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/");
   const dispatch = useAppDispatch();
@@ -16,6 +18,20 @@ const Header = () => {
     setActiveLink(href);
     setIsOpen(false);
   };
+
+  useEffect(()=>{
+    if (pathname === '/riders') {
+      handleLinkClick('/riders');
+    } else if (pathname === '/drivers') {
+      handleLinkClick('/drivers');
+    } else if (pathname === '/customerQueries') {
+      handleLinkClick('/customerQueries');
+    } else if (pathname === '/userManagement') {
+      handleLinkClick('/userManagement');
+    } else if (pathname === '/driverVerification') {
+      handleLinkClick('/driverVerification');
+    }
+  },[pathname])
 
   const getPath = () => {
     switch (userRole) {
@@ -95,31 +111,21 @@ const Header = () => {
                 </li>
                 <li className="border-b-2 py-2 md:border-none md:py-0">
                   <Link
-                    href="/signup"
+                    href="/riders"
                     className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
                       activeLink === "/riders" ? "font-medium text-gray-950" : "font-light text-gray-600"
                     } w-full justify-center flex md:flex-none md:inline`}
-                    onClick={() => {
-                      handleLinkClick("/riders");
-                      dispatch(setRole("rider"));
-                      dispatch(hideCommonLayout());
-                    }}
-                  >
+                    onClick={() => {handleLinkClick("/riders");}}>
                     Riders
                   </Link>
                 </li>
                 <li className="border-b-2 py-2 md:border-none md:py-0">
                   <Link
-                    href="/signup"
+                    href="/drivers"
                     className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
                       activeLink === "/drivers" ? "font-medium text-gray-950" : "font-light text-gray-600"
                     } w-full justify-center flex md:flex-none md:inline`}
-                    onClick={() => {
-                      handleLinkClick("/drivers");
-                      dispatch(setRole("driver"));
-                      dispatch(hideCommonLayout());
-                    }}
-                  >
+                    onClick={() => {handleLinkClick("/drivers");}}>
                     Drivers
                   </Link>
                 </li>
