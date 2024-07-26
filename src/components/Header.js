@@ -2,21 +2,31 @@
 import Link from "next/link";
 import { useState , useEffect } from "react";
 import Image from "next/image";
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { setRole } from "@/lib/features/role/roleSlice";
 import { hideCommonLayout } from "@/lib/features/layout/layoutSlice";
+import { signOut } from "next-auth/react"
 
 const Header = () => {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/");
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const userRole = useAppSelector((state) => state.role.userRole);
 
   const handleLinkClick = (href) => {
     setActiveLink(href);
     setIsOpen(false);
+  };
+
+  const handleLogout = () => {
+    signOut({ redirect: false }).then(() => {
+      router.push("/"); 
+      handleLinkClick("/logout")
+      dispatch(setRole(""))
+    });
   };
 
   useEffect(()=>{
@@ -131,12 +141,12 @@ const Header = () => {
                 </li>
                 <li className="border-b-2 py-2 md:border-none md:py-0">
                   <Link
-                    href="/login"
+                    href="/api/auth/signin"
                     className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
-                      activeLink === "/login" ? "font-medium text-gray-950" : "font-light text-gray-600"
+                      activeLink === "/admin" ? "font-medium text-gray-950" : "font-light text-gray-600"
                     } w-full justify-center flex md:flex-none md:inline`}
                     onClick={() => {
-                      handleLinkClick("/login");
+                      handleLinkClick("/admin");
                       dispatch(setRole("admin"));
                       dispatch(hideCommonLayout());
                     }}
@@ -194,6 +204,17 @@ const Header = () => {
                     onClick={() => handleLinkClick("/customerQueries")}
                   >
                     Customer Queries
+                  </Link>
+                </li>
+                <li className="border-b-2 py-2 md:border-none md:py-0">
+                  <Link
+                    href=""
+                    className={`md:p-1 md:pb-[3px] rounded md:hover:border-b-2 md:hover:border-black ${
+                      activeLink === "/logout" ? "font-medium text-gray-950" : "font-light text-gray-600"
+                    } w-full justify-center flex md:flex-none md:inline`}
+                    onClick={() => {handleLogout()}}
+                  >
+                    Logout
                   </Link>
                 </li>
               </>
