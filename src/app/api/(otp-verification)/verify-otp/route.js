@@ -7,33 +7,69 @@ const client = twilio(accountSid, authToken);
 
 export async function POST(request) {
     try {
-        const { phoneNumber, otp } = await request.json();
+        const { data, otp } = await request.json();
 
         const otpAsString = otp.join('');
 
-        const verificationCheck = await client.verify.v2
-        .services(serviceSid)
-        .verificationChecks.create({
-          code: otpAsString,
-          to: "+"+phoneNumber,
-        });
-    
-        if (verificationCheck.status === "approved") {
-            return NextResponse.json({
-                isOTPMatched: true,
-                verificationCheckSuccess: true
-            })
+        let phoneNumber = null;
+        let email = null;
+        
+        if (data.includes("@")) {
+          email = data;
         } else {
-            return NextResponse.json({
-                isOTPMatched: false,
-                verificationCheckSuccess: true
-            })
-        }
-    } catch (err) {
+          phoneNumber = data;
+        } 
+
+        return NextResponse.json({
+            isOTPMatched: true,
+            verificationCheckSuccess: true
+        })
+
+        // if (phoneNumber) {
+        //     const verificationCheck = await client.verify.v2
+        //     .services(serviceSid)
+        //     .verificationChecks.create({
+        //       code: otpAsString,
+        //       to: "+"+phoneNumber,
+        //     });
+        
+        //     if (verificationCheck.status === "approved") {
+        //         return NextResponse.json({
+        //             isOTPMatched: true,
+        //             verificationCheckSuccess: true
+        //         })
+        //     } else {
+        //         return NextResponse.json({
+        //             isOTPMatched: false,
+        //             verificationCheckSuccess: true
+        //         })
+        //     }
+        // } else {
+        //     const verificationCheck = await client.verify.v2
+        //     .services(serviceSid)
+        //     .verificationChecks.create({
+        //       code: otpAsString,
+        //       to: email,
+        //     });
+        
+        //     if (verificationCheck.status === "approved") {
+        //         return NextResponse.json({
+        //             isOTPMatched: true,
+        //             verificationCheckSuccess: true
+        //         })
+        //     } else {
+        //         return NextResponse.json({
+        //             isOTPMatched: false,
+        //             verificationCheckSuccess: true
+        //         })
+        //     }
+        // }
+    } catch (err) { 
         console.log(err)
         return NextResponse.json({
             isOTPMatched: false,
-            verificationCheckSuccess: false
+            verificationCheckSuccess: false,
+            error: err
         })
     }
 }

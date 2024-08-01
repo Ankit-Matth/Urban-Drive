@@ -4,10 +4,10 @@ import UserModel from '@/models/Users';
 import bcrypt from 'bcryptjs';
 
 export async function POST(request) {
-    connectDB();
-
     try {
         const { phoneNumber, country, email, fullName, username, password, profilePic, userRole } = await request.json();
+
+        connectDB();
 
         // Destructure only the required fields from country
         const { name: countryName, countryCode } = country;
