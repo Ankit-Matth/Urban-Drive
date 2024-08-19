@@ -1,41 +1,18 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { compare } from 'bcryptjs'
-import connectDB from '@/utils/dbConfig'
-import UserModel from "./models/Users"
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     CredentialsProvider({
-        name: "Credentials",
+        name: "credentials",
         credentials: {
             email: { label: "Email", type: "email" },
             password: { label: "Password", type: "password" }
         },
         async authorize(credentials) {
-          const email = credentials.email
-          const password = credentials.password
-          
-          await connectDB()
-
-          try {
-            const user = await UserModel.findOne({ email })
-  
-            if (!user) {
-              throw new Error("Invalid email or password")
-            }
-
-            const isPasswordMatched = await compare(password, user.password)
-
-            if (isPasswordMatched) {
-              return user
-            } else {
-              throw new Error("Invalid email or password")
-            }
-          } catch (error) {
-            console.error("Error in authorization:", error)
-            return null
-          }
+          const user = JSON.parse(credentials.userWithoutPassword)
+          // Everything is handled in the action at src/action/login.js, not here, because an error is caused due to Mongoose not being usable in the Edge runtime environment in Next.js.
+          return user
         }
     })
   ],
@@ -47,4 +24,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt"
   },
   secret: process.env.AUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token._id = user._id;
+        token.phoneNumber = user.phoneNumber;
+        token.country = user.country;
+        token.email = user.email;
+        token.fullName = user.fullName;
+        token.username = user.username;
+        token.role = user.role;
+        // token.profilePic = user.profilePic;
+        token.isBlocked = user.isBlocked;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user._id = token._id;
+        session.user.phoneNumber = token.phoneNumber;
+        session.user.country = token.country;
+        session.user.email = token.email;
+        session.user.fullName = token.fullName;
+        session.user.username = token.username;
+        session.user.role = token.role;
+        // session.user.profilePic = token.profilePic;
+        session.user.isBlocked = token.isBlocked;
+      }
+      return session;
+    }
+  }
 })
