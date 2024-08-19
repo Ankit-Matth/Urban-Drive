@@ -21,9 +21,9 @@ export const loginHandler = async (formData) => {
 
         if (isPasswordMatched) {
           const { password, ...userWithoutPassword } = user.toObject();
-          
+
           await signIn("credentials",{
-            userWithoutPassword,
+            userWithoutPassword: JSON.stringify(userWithoutPassword),
             redirect: false
           })
 
