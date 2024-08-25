@@ -6,15 +6,16 @@ import { useRouter, usePathname } from 'next/navigation'
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import { setRole } from "@/lib/features/role/roleSlice";
 import { hideCommonLayout } from "@/lib/features/layout/layoutSlice";
-import { signOut } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 
 const Header = () => {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("/");
   const dispatch = useAppDispatch();
   const router = useRouter();
   const userRole = useAppSelector((state) => state.role.userRole);
+  const { data: session, status } = useSession();
 
   const handleLinkClick = (href) => {
     setActiveLink(href);
@@ -55,6 +56,12 @@ const Header = () => {
         return "/";
     }
   };
+
+  useEffect(()=>{
+    if (status === "authenticated") {
+      dispatch(setRole(session.user.role))
+    }
+  },[status,dispatch,session?.user])
 
   return (
     <header className="p-4 py-6 shadow-md">
@@ -179,7 +186,7 @@ const Header = () => {
                     } w-full justify-center flex md:flex-none md:inline`}
                     onClick={() => handleLinkClick("/driverVerification")}
                   >
-                    Driver Verification
+                    Vehicle Verification
                   </Link>
                 </li>
                 <li className="border-b-2 py-2 md:border-none md:py-0">
@@ -257,7 +264,9 @@ const Header = () => {
                       handleLinkClick("/drivers");
                     }}
                   >
+                    {session ? session.user.email : 
                     <Image src="/svgs/defaultUser.svg" alt="Logo" width={25} height={25} />
+                    }
                   </Link>
                 </li>
               </>
